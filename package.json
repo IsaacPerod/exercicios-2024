@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "cypress": "^13.8.1",
+    "sass": "^1.75.0"
+  }
+}
