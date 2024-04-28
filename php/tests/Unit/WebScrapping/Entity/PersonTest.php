@@ -29,5 +29,5 @@ class PersonTest extends TestCase {
     $this->assertEquals('Name', $person->name);
     $this->assertEquals('', $person->institution);
   }
-
+  
 }

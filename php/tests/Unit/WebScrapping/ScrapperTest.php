@@ -22,5 +22,5 @@ class ScrapperTest extends TestCase {
 
     $this->assertIsArray($results);
   }
-
+  
 }

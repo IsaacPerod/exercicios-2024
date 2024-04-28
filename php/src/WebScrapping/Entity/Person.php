@@ -18,7 +18,25 @@ class Person {
   public string $institution;
 
   /**
-   * Builder.
+     * Get the name of the author.
+     *
+     * @return string
+     */
+    public function getName(): string {
+      return $this->name;
+  }
+
+  /**
+     * Get the institution of the author.
+     *
+     * @return string
+     */
+    public function getInstitution(): string {
+      return $this->institution;
+  }
+
+  /**
+   * Builder for the Person.
    */
   public function __construct($name, $institution) {
     $this->name = $name;
