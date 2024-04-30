@@ -9,60 +9,69 @@ use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
  */
 class Main {
 
-  /**
-   * Main runner, instantiates a Scrapper and runs.
-   */
-  public static function run() {
-      // Crie um novo objeto Scrapper
-      $scrapper = new Scrapper();
+/**
+* Main runner, instantiates a Scrapper and runs.
+*/
+public static function run() {
+    // Crie um novo objeto Scrapper
+    $scrapper = new Scrapper();
 
-      // Carrega o HTML do arquivo origin.html
-      $dom = new \DOMDocument();
-      @$dom->loadHTMLFile('C:\Users\isaac\OneDrive\Área de Trabalho\Chuva\php\assets\origin.html');
+    // Carrega o HTML do arquivo origin.html
+    $dom = new \DOMDocument();
+    @$dom->loadHTMLFile('C:\Users\isaac\OneDrive\Área de Trabalho\Chuva\php\assets\origin.html');
 
-      // Extrai os dados dos papers do HTML
-      $data = $scrapper->scrap($dom);
+    // Extrai os dados dos papers do HTML
+    $data = $scrapper->scrap($dom);
 
-      // Cria um novo escritor Excel
-      $writer = WriterEntityFactory::createXLSXWriter();
+    // Cria um novo escritor Excel
+    $writer = WriterEntityFactory::createXLSXWriter();
 
-      // Abre o arquivo Excel para escrita
-      $writer->openToFile('Trabalhos.xlsx');
+    // Abre o arquivo Excel para escrita
+    $writer->openToFile('Trabalhos.xlsx');
 
-      // Define um número máximo de autores
-      $maxAuthors = 10;
+    // Adiciona os títulos às colunas da planilha
+    $titleRow = ['ID', 'Title', 'Type'];
 
-      // Adiciona os títulos às colunas da planilha
-      $titleRow = ['ID', 'Title', 'Type'];
-      for ($i = 1; $i <= $maxAuthors; $i++) {
-          array_push($titleRow, "Author $i", "Author $i Institution");
-      }
-      $writerTitleRow = WriterEntityFactory::createRowFromArray($titleRow);
-      $writer->addRow($writerTitleRow);
+    // Determina o número máximo de autores
+    $maxAuthors = 0;
+    foreach ($data as $paper) {
+        $numAuthors = count($paper->getAuthors());
+        if ($numAuthors > $maxAuthors) {
+            $maxAuthors = $numAuthors;
+        }
+    }
 
-      // Escreve os dados no arquivo Excel
-      foreach ($data as $paper) {
-          $row = [$paper->getId(), $paper->getTitle(), $paper->getType()];
+    // Adiciona títulos para cada autor e instituição
+    for ($i = 1; $i <= $maxAuthors; $i++) {
+        array_push($titleRow, "Author $i", "Author $i Institution");
+    }
+    $writerTitleRow = WriterEntityFactory::createRowFromArray($titleRow);
+    $writer->addRow($writerTitleRow);
 
-          // Adiciona os autores e instituições à linha
-          for ($i = 0; $i < $maxAuthors; $i++) {
-              if (isset($paper->getAuthors()[$i])) {
-                  $author = $paper->getAuthors()[$i];
-                  array_push($row, $author->getName(), $author->getInstitution());
-              } else {
-                  // Se não houver autor para este índice, adiciona valores vazios
-                  array_push($row, '', '');
-              }
-          }
+    // Escreve os dados no arquivo Excel
+    foreach ($data as $paper) {
+        $row = [$paper->getId(), $paper->getTitle(), $paper->getType()];
 
-          // Adiciona uma nova linha ao arquivo Excel
-          $writerRow = WriterEntityFactory::createRowFromArray($row);
-          $writer->addRow($writerRow);
-      }
+        // Adiciona os autores e instituições à linha
+        $authors = $paper->getAuthors();
+        for ($i = 0; $i < $maxAuthors; $i++) {
+            if (isset($authors[$i])) {
+                $author = $authors[$i];
+                array_push($row, $author->getName(), $author->getInstitution());
+            } else {
+                // Se não houver autor para este índice, adiciona valores vazios
+                array_push($row, '', '');
+            }
+        }
 
-      // Fecha o arquivo Excel
-      $writer->close();
-        
-      echo "Excel file created successfully\n";
+        // Adiciona uma nova linha ao arquivo Excel
+        $writerRow = WriterEntityFactory::createRowFromArray($row);
+        $writer->addRow($writerRow);
+    }
+
+    // Fecha o arquivo Excel
+    $writer->close();
+    
+    echo "Excel file created successfully\n";
   }
 }
