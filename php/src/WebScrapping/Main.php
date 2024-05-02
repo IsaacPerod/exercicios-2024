@@ -18,7 +18,14 @@ public static function run() {
 
     // Carrega o HTML do arquivo origin.html
     $dom = new \DOMDocument('1.0', 'utf-8');
+
+    // Desativa os erros libxml e permite que o usuário os recupere como necessário
+    libxml_use_internal_errors(true);
+
     $dom->loadHTMLFile(__DIR__ . '/../../assets/origin.html');
+
+    // Limpa os erros
+    libxml_clear_errors();
 
     // Extrai os dados dos papers do HTML
     $data = $scrapper->scrap($dom);
