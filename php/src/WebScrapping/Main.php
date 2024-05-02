@@ -17,8 +17,8 @@ public static function run() {
     $scrapper = new Scrapper();
 
     // Carrega o HTML do arquivo origin.html
-    $dom = new \DOMDocument();
-    @$dom->loadHTMLFile('C:\Users\isaac\OneDrive\Área de Trabalho\Chuva\php\assets\origin.html');
+    $dom = new \DOMDocument('1.0', 'utf-8');
+    $dom->loadHTMLFile(__DIR__ . '/../../assets/origin.html');
 
     // Extrai os dados dos papers do HTML
     $data = $scrapper->scrap($dom);
