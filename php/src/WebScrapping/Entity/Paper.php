@@ -10,21 +10,21 @@ class Paper {
   /**
    * Paper Id.
    *
-   * @var int The ID of the paper.
+   * @var int The ID of the paper
    */
   public $id;
 
   /**
    * Paper Title.
    *
-   * @var string The title of the paper.
+   * @var string The title of the paper
    */
   public $title;
 
   /**
    * The paper type (e.g. Poster, Nobel Prize, etc).
    *
-   * @var string The type of the paper.
+   * @var string The type of the paper
    */
   public $type;
 
@@ -38,7 +38,8 @@ class Paper {
   /**
    * Get the ID of the paper.
    *
-   * @return int The ID of the paper.
+   * @return int 
+   *  The ID of the paper.
    */
   public function getId(): int {
     return $this->id;
@@ -47,7 +48,8 @@ class Paper {
   /**
    * Get the title of the paper.
    *
-   * @return string The title of the paper.
+   * @return string
+   *  The title of the paper.
    */
   public function getTitle(): string {
     return $this->title;
@@ -56,7 +58,8 @@ class Paper {
   /**
    * Get the type of the paper.
    *
-   * @return string The type of the paper.
+   * @return string 
+   *  The type of the paper.
    */
   public function getType(): string {
     return $this->type;
@@ -66,6 +69,7 @@ class Paper {
    * Get the authors of the paper.
    *
    * @return \Chuva\Php\WebScrapping\Entity\Person[]
+   *  The authors of the paper.
    */
   public function getAuthors(): array {
     return $this->authors;

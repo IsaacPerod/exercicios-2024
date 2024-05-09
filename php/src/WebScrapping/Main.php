@@ -66,7 +66,8 @@ class Main {
                 if (isset($authors[$i])) {
                     $author = $authors[$i];
                     array_push($row, $author->getName(), $author->getInstitution());
-                } else {
+                }
+                else {
                     // If there is no author for this index, add empty values.
                     array_push($row, '', '');
                 }
