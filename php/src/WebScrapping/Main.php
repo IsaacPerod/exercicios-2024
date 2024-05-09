@@ -7,13 +7,11 @@ use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 /**
  * Runner for the Webscrapping exercice.
  */
-
 class Main {
 
     /**
      * Main runner, instantiates a Scrapper and runs.
      */
-
     public static function run() {
 
         // Creates a new Scrapper object.

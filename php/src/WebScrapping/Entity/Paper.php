@@ -5,15 +5,13 @@ namespace Chuva\Php\WebScrapping\Entity;
 /**
  * The Paper class represents the row of the parsed data.
  */
-
-class Paper{
+class Paper {
 
   /**
    * Paper Id.
    *
    * @var int The ID of the paper.
    */
-
   public $id;
 
   /**
@@ -21,7 +19,6 @@ class Paper{
    *
    * @var string The title of the paper.
    */
-
   public $title;
 
   /**
@@ -29,7 +26,6 @@ class Paper{
    *
    * @var string The type of the paper.
    */
-
   public $type;
 
   /**
@@ -44,8 +40,7 @@ class Paper{
    *
    * @return int The ID of the paper.
    */
-
-  public function getId(): int{
+  public function getId(): int {
     return $this->id;
   }
 
@@ -54,8 +49,7 @@ class Paper{
    *
    * @return string The title of the paper.
    */
-
-  public function getTitle(): string{
+  public function getTitle(): string {
     return $this->title;
   }
 
@@ -64,8 +58,7 @@ class Paper{
    *
    * @return string The type of the paper.
    */
-
-  public function getType(): string{
+  public function getType(): string {
     return $this->type;
   }
 
@@ -74,8 +67,7 @@ class Paper{
    *
    * @return \Chuva\Php\WebScrapping\Entity\Person[]
    */
-
-  public function getAuthors(): array{
+  public function getAuthors(): array {
     return $this->authors;
   }
 
@@ -87,8 +79,7 @@ class Paper{
    * @param string $type The type of the paper.
    * @param \Chuva\Php\WebScrapping\Entity\Person[] $authors The authors of the paper.
    */
-  
-  public function __construct($paperID, $title, $type, $authors = []){
+  public function __construct($paperID, $title, $type, $authors = []) {
     $this->id = $paperID;
     $this->title = $title;
     $this->type = $type;
