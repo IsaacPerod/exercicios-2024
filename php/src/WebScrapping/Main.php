@@ -63,14 +63,14 @@ class Main {
       // Adds authors and institutions to the line.
       $authors = $paper->getAuthors();
       for ($i = 0; $i < $maxAuthors; $i++) {
-          if (isset($authors[$i])) {
-              $author = $authors[$i];
-              array_push($row, $author->getName(), $author->getInstitution());
-          }
-          else {
-              // If there is no author for this index, add empty values.
-              array_push($row, '', '');
-          }
+        if (isset($authors[$i])) {
+          $author = $authors[$i];
+          array_push($row, $author->getName(), $author->getInstitution());
+        }
+        else {
+          // If there is no author for this index, add empty values.
+          array_push($row, '', '');
+        }
       }
 
       // Adds a new line to the Excel file.

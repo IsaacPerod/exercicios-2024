@@ -11,7 +11,7 @@ use Chuva\Php\WebScrapping\Entity\Person;
 class Scrapper {
 
   /**
-   * Loads paper information from the HTML and returns Paper[] the array with the data.
+   * Loads information from HTML and returns the Paper[] array with the data.
    */
   public function scrap(\DOMDocument $dom): array {
 
