@@ -43,39 +43,39 @@ class Main {
     // Determines the maximum number of authors.
     $maxAuthors = 0;
     foreach ($data as $paper) {
-        $numAuthors = count($paper->getAuthors());
-        if ($numAuthors > $maxAuthors) {
-            $maxAuthors = $numAuthors;
-        }
+      $numAuthors = count($paper->getAuthors());
+      if ($numAuthors > $maxAuthors) {
+        $maxAuthors = $numAuthors;
+      }
     }
 
     // Add titles for each author and institution.
     for ($i = 1; $i <= $maxAuthors; $i++) {
-        array_push($titleRow, "Author $i", "Author $i Institution");
+      array_push($titleRow, "Author $i", "Author $i Institution");
     }
     $writerTitleRow = WriterEntityFactory::createRowFromArray($titleRow);
     $writer->addRow($writerTitleRow);
 
     // Write the data to the Excel file.
     foreach ($data as $paper) {
-        $row = [$paper->getId(), $paper->getTitle(), $paper->getType()];
+      $row = [$paper->getId(), $paper->getTitle(), $paper->getType()];
 
-        // Adds authors and institutions to the line.
-        $authors = $paper->getAuthors();
-        for ($i = 0; $i < $maxAuthors; $i++) {
-            if (isset($authors[$i])) {
-                $author = $authors[$i];
-                array_push($row, $author->getName(), $author->getInstitution());
-            }
-            else {
-                // If there is no author for this index, add empty values.
-                array_push($row, '', '');
-            }
-        }
+      // Adds authors and institutions to the line.
+      $authors = $paper->getAuthors();
+      for ($i = 0; $i < $maxAuthors; $i++) {
+          if (isset($authors[$i])) {
+              $author = $authors[$i];
+              array_push($row, $author->getName(), $author->getInstitution());
+          }
+          else {
+              // If there is no author for this index, add empty values.
+              array_push($row, '', '');
+          }
+      }
 
-        // Adds a new line to the Excel file.
-        $writerRow = WriterEntityFactory::createRowFromArray($row);
-        $writer->addRow($writerRow);
+      // Adds a new line to the Excel file.
+      $writerRow = WriterEntityFactory::createRowFromArray($row);
+      $writer->addRow($writerRow);
     }
 
     // Closes the Excel file.

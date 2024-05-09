@@ -26,26 +26,26 @@ class Scrapper {
 
     // Iterates over each element 'a'.
     foreach ($paperNodes as $paperNode) {
-        // Extracts the title of the work.
-        $title = $xpath->query('.//h4', $paperNode)->item(0)->nodeValue;
+      // Extracts the title of the work.
+      $title = $xpath->query('.//h4', $paperNode)->item(0)->nodeValue;
 
-        // Extracts the authors of the work and their institutions.
-        $authorNodes = $xpath->query('.//div[@class="authors"]/span', $paperNode);
-        $authors = [];
-        foreach ($authorNodes as $authorNode) {
-            $name = $authorNode->nodeValue;
-            $institution = $authorNode->getAttribute('title');
-            $authors[] = new Person($name, $institution);
-        }
+      // Extracts the authors of the work and their institutions.
+      $authorNodes = $xpath->query('.//div[@class="authors"]/span', $paperNode);
+      $authors = [];
+      foreach ($authorNodes as $authorNode) {
+        $name = $authorNode->nodeValue;
+        $institution = $authorNode->getAttribute('title');
+        $authors[] = new Person($name, $institution);
+      }
 
-        // Extracts the presentation type.
-        $type = $xpath->query('.//div[@class="tags mr-sm"]/text()', $paperNode)->item(0)->nodeValue;
+      // Extracts the presentation type.
+      $type = $xpath->query('.//div[@class="tags mr-sm"]/text()', $paperNode)->item(0)->nodeValue;
 
-        // Extracts the paper ID.
-        $paperID = $xpath->query('.//div[@class="volume-info"]', $paperNode)->item(0)->nodeValue;
+      // Extracts the paper ID.
+      $paperID = $xpath->query('.//div[@class="volume-info"]', $paperNode)->item(0)->nodeValue;
 
-        // Creates a new Paper object and adds it to the papers array.
-        $papers[] = new Paper($paperID, $title, $type, $authors);
+      // Creates a new Paper object and adds it to the papers array.
+      $papers[] = new Paper($paperID, $title, $type, $authors);
     }
 
     // Returns the papers array.
