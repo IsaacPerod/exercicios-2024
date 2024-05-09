@@ -46,8 +46,8 @@ class Person {
    *   The institution of author.
    */
   public function __construct(string $name, string $institution) {
-  $this->name = $name;
-  $this->institution = $institution;
+    $this->name = $name;
+    $this->institution = $institution;
   }
 
 }

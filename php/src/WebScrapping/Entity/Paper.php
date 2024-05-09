@@ -69,7 +69,7 @@ class Paper {
    * Get the authors of the paper.
    *
    * @return \Chuva\Php\WebScrapping\Entity\Person[]
-   *  The authors of the paper.
+   *   The authors of the paper.
    */
   public function getAuthors(): array {
     return $this->authors;
@@ -78,13 +78,13 @@ class Paper {
   /**
    * Builder for the Paper class.
    *
-   * @param int $paperID 
+   * @param int $paperID
    *   The ID of the paper.
-   * @param string $title 
+   * @param string $title
    *   The title of the paper.
-   * @param string $type 
+   * @param string $type
    *   The type of the paper.
-   * @param \Chuva\Php\WebScrapping\Entity\Person[] $authors 
+   * @param \Chuva\Php\WebScrapping\Entity\Person[] $authors
    *   The authors of the paper.
    */
   public function __construct($paperID, $title, $type, $authors = []) {
