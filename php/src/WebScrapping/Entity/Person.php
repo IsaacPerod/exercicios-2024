@@ -5,7 +5,8 @@ namespace Chuva\Php\WebScrapping\Entity;
 /**
  * Paper Author personal information.
  */
-class Person {
+class Person
+{
 
   /**
    * Person name.
@@ -18,29 +19,31 @@ class Person {
   public string $institution;
 
   /**
-     * Get the name of the author.
-     *
-     * @return string
-     */
-    public function getName(): string {
-      return $this->name;
+   * Get the name of the author.
+   *
+   * @return string
+   */
+  public function getName(): string
+  {
+    return $this->name;
   }
 
   /**
-     * Get the institution of the author.
-     *
-     * @return string
-     */
-    public function getInstitution(): string {
-      return $this->institution;
+   * Get the institution of the author.
+   *
+   * @return string
+   */
+  public function getInstitution(): string
+  {
+    return $this->institution;
   }
 
   /**
    * Builder for the Person.
    */
-  public function __construct($name, $institution) {
+  public function __construct($name, $institution)
+  {
     $this->name = $name;
     $this->institution = $institution;
   }
-
 }
