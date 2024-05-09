@@ -8,41 +8,41 @@ use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
  * Runner for the Webscrapping exercice.
  */
 
-class Main{
+class Main {
 
     /**
      * Main runner, instantiates a Scrapper and runs.
      */
 
-    public static function run(){
-        // Crie um novo objeto Scrapper.
+    public static function run() {
+
+        // Creates a new Scrapper object.
         $scrapper = new Scrapper();
 
-        // Carrega o HTML do arquivo origin.html.
+        // Loads the HTML from the origin.html file.
         $dom = new \DOMDocument('1.0', 'utf-8');
 
-        // Desativa os erros libxml e permite que o 
-        // usuário os recupere como necessário.
+        // Disables libxml errors.
         libxml_use_internal_errors(TRUE);
 
         $dom->loadHTMLFile(__DIR__ . '/../../assets/origin.html');
 
-        // Limpa os erros.
+        // Cleans up the errors.
         libxml_clear_errors();
 
-        // Extrai os dados dos papers do HTML.
+        // Extracts data from HTML papers.
         $data = $scrapper->scrap($dom);
 
-        // Cria um novo escritor Excel.
+        // Creates a new Excel writer.
         $writer = WriterEntityFactory::createXLSXWriter();
 
-        // Abre o arquivo Excel para escrita.
+        // Opens the Excel file for writing.
         $writer->openToFile('Trabalhos.xlsx');
 
-        // Adiciona os títulos às colunas da planilha.
+        // Add titles to the spreadsheet columns.
         $titleRow = ['ID', 'Title', 'Type'];
 
-        // Determina o número máximo de autores.
+        // Determines the maximum number of authors.
         $maxAuthors = 0;
         foreach ($data as $paper) {
             $numAuthors = count($paper->getAuthors());
@@ -51,35 +51,35 @@ class Main{
             }
         }
 
-        // Adiciona títulos para cada autor e instituição.
+        // Add titles for each author and institution.
         for ($i = 1; $i <= $maxAuthors; $i++) {
             array_push($titleRow, "Author $i", "Author $i Institution");
         }
         $writerTitleRow = WriterEntityFactory::createRowFromArray($titleRow);
         $writer->addRow($writerTitleRow);
 
-        // Escreve os dados no arquivo Excel.
+        // Write the data to the Excel file.
         foreach ($data as $paper) {
             $row = [$paper->getId(), $paper->getTitle(), $paper->getType()];
 
-            // Adiciona os autores e instituições à linha.
+            // Adds authors and institutions to the line.
             $authors = $paper->getAuthors();
             for ($i = 0; $i < $maxAuthors; $i++) {
                 if (isset($authors[$i])) {
                     $author = $authors[$i];
                     array_push($row, $author->getName(), $author->getInstitution());
                 } else {
-                    // Se não houver autor para este índice, adiciona valores vazios.
+                    // If there is no author for this index, add empty values.
                     array_push($row, '', '');
                 }
             }
 
-            // Adiciona uma nova linha ao arquivo Excel.
+            // Adds a new line to the Excel file.
             $writerRow = WriterEntityFactory::createRowFromArray($row);
             $writer->addRow($writerRow);
         }
 
-        // Fecha o arquivo Excel.
+        // Closes the Excel file.
         $writer->close();
 
         echo "Excel file created successfully\n";

@@ -9,31 +9,30 @@ use Chuva\Php\WebScrapping\Entity\Person;
  * Does the scrapping of a webpage.
  */
 
-class Scrapper{
+class Scrapper {
 
     /**
-     * Loads paper information from the HTML and 
+     * Loads paper information from the HTML and
      * returns Paper[] the array with the data.
      */
 
-    public function scrap(\DOMDocument $dom): array{
+    public function scrap(\DOMDocument $dom): array {
 
-        // Cria uma matriz vazia para armazenar 
-        // os papers.
+        // Creates an empty array to store the papers.
         $papers = [];
 
-        // Cria um novo objeto DOMXPath para poder fazer consultas XPath no documento.
+        // Creates a new DOMXPath obj to do XPath queries.
         $xpath = new \DOMXPath($dom);
 
-        // Encontra todos os elementos 'a' com a classe 'paper-card'.
+        // Finds all 'a' elements with class 'paper-card'.
         $paperNodes = $xpath->query('//a[contains(@class, "paper-card")]');
 
-        // Itera sobre cada elemento 'a'.
+        // Iterates over each element 'a'.
         foreach ($paperNodes as $paperNode) {
-            // Extrai o título do trabalho.
+            // Extracts the title of the work.
             $title = $xpath->query('.//h4', $paperNode)->item(0)->nodeValue;
 
-            // Extrai os autores do trabalho e suas instituições.
+            // Extracts the authors of the work and their institutions.
             $authorNodes = $xpath->query('.//div[@class="authors"]/span', $paperNode);
             $authors = [];
             foreach ($authorNodes as $authorNode) {
@@ -42,18 +41,18 @@ class Scrapper{
                 $authors[] = new Person($name, $institution);
             }
 
-            // Extrai o tipo de apresentação.
+            // Extracts the presentation type.
             $type = $xpath->query('.//div[@class="tags mr-sm"]/text()', $paperNode)->item(0)->nodeValue;
 
-            // Extrai o ID do paper.
+            // Extracts the paper ID.
             $paperID = $xpath->query('.//div[@class="volume-info"]', $paperNode)->item(0)->nodeValue;
 
-            // Cria um novo objeto Paper e o adiciona à matriz de papers.
+            // Creates a new Paper object and adds it to the papers array.
             $papers[] = new Paper($paperID, $title, $type, $authors);
         }
 
-        // Retorna a matriz de papers.
+        // Returns the papers array.
         return $papers;
     }
-    
+
 }
