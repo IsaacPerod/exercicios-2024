@@ -8,14 +8,18 @@ use Chuva\Php\WebScrapping\Entity\Person;
 /**
  * Does the scrapping of a webpage.
  */
+
 class Scrapper{
 
     /**
-     * Loads paper information from the HTML and returns Paper[] the array with the data.
+     * Loads paper information from the HTML and 
+     * returns Paper[] the array with the data.
      */
+
     public function scrap(\DOMDocument $dom): array{
 
-        // Cria uma matriz vazia para armazenar os papers.
+        // Cria uma matriz vazia para armazenar 
+        // os papers.
         $papers = [];
 
         // Cria um novo objeto DOMXPath para poder fazer consultas XPath no documento.

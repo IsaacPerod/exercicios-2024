@@ -7,11 +7,13 @@ use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 /**
  * Runner for the Webscrapping exercice.
  */
+
 class Main{
 
     /**
      * Main runner, instantiates a Scrapper and runs.
      */
+
     public static function run(){
         // Crie um novo objeto Scrapper.
         $scrapper = new Scrapper();
@@ -19,7 +21,8 @@ class Main{
         // Carrega o HTML do arquivo origin.html.
         $dom = new \DOMDocument('1.0', 'utf-8');
 
-        // Desativa os erros libxml e permite que o usuário os recupere como necessário.
+        // Desativa os erros libxml e permite que o 
+        // usuário os recupere como necessário.
         libxml_use_internal_errors(TRUE);
 
         $dom->loadHTMLFile(__DIR__ . '/../../assets/origin.html');
